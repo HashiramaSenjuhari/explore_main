@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p id="billionaire"></p>
+  </body>
+  <script>
+    async function place() {
+      let p = document.getElementById("billionaire");
+      // let window = Window();
+      // let cache = await window.addEventListener("online", (e) => {
+      //   console.log("billionaire");
+      // });
+      // console.log(cache);
+      let message = new WebSocket("ws://127.0.0.1:7878/billionaire");
+      message.onopen = () => {
+        console.log("opening");
+        p.addEventListener("change", (e) => {
+          let billionaire = p.textContent;
+          console.log(billionaire);
+        });
+        message.send("billionaire");
+      };
+      message.onmessage = (e) => {
+        console.log(e.data);
+        let p = document.getElementById("billionaire");
+        p.innerText += e.data + " ";
+      };
+      message.onerror = () => {};
+      message.onclose = () => {
+        console.log("clos");
+      };
+    }
+    place();
+  </script>
+</html>

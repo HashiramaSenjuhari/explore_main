@@ -52,20 +52,14 @@ export default function Dynamic() {
     };
   }, []);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((location) => {
-      let lattitude = location.coords.latitude;
-      let longitude = location.coords.longitude;
-      setLocation({
-        lattitude: lattitude,
-        longitude: longitude,
-      });
-    });
-  }, []);
   let value = (value: string) => {
     let ws = new WebSocket("ws://127.0.0.1:7878");
     ws.onopen = () => {
+      //
       console.log("Opening stream");
+
+      //
+      //
       let lattitude = location.lattitude;
       let longitude = location.longitude;
       let message = JSON.stringify({
@@ -74,16 +68,21 @@ export default function Dynamic() {
         id: id,
         interest: value,
       });
+      //
+      //
       console.log(message);
+      //
       ws.send(message);
-      // let reload = window.location.reload();
-      // window.onload = () => {
-      //   window.scrollTo({
-      //     behavior: "smooth",
-      //     top: document.documentElement.scrollWidth + 4000,
-      //   });
-      // };
-      // revalidatePath(`/explore/${id}`);
+      //
+      //
+      let reload = window.location.reload();
+      window.onload = () => {
+        window.scrollTo({
+          behavior: "smooth",
+          top: document.documentElement.scrollWidth + 4000,
+        });
+      };
+      revalidatePath(`/explore/${id}`);
     };
     ws.onerror = (e) => {
       console.log(e);
@@ -92,11 +91,7 @@ export default function Dynamic() {
       console.log("Closing");
     };
   };
-  // window.onload = () => {
-  //   console.log(
-  //     "billionairebbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-  //   );
-  // };
+
   let [height, setHeight] = useState<number>();
   useEffect(() => {
     let scrollHeight = document.documentElement.scrollHeight;
@@ -111,12 +106,8 @@ export default function Dynamic() {
       });
     };
   }, [height]);
-  // console.log(msg);
   return (
     <div className="h-full w-full pt-4">
-      {/* Sidebar */}
-
-      {/* Main Content */}
       <main className="flex-1 p-6 pb-24">
         {msg ? (
           msg?.map((map, index) => {
