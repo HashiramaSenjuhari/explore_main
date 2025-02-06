@@ -79,7 +79,7 @@ export default function Explore() {
     setLoading(false);
   };
   return (
-    <main className="flex-1 p-9 flex justify-center items-center flex-col">
+    <main className="flex-1 p-9 flex justify-center items-center flex-col h-full">
       <div className="w-full mx-auto text-center mb-12">
         <h1 className="text-3xl font-bold mb-4">Welcome, Davis</h1>
         <p className="text-xl text-gray-500 mb-8">
