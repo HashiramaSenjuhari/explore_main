@@ -4,6 +4,8 @@
 
 ## Description
 
+- **Search Engine** that helps us to explore the place by understanding user query
+
 #### The Product That we can ask
 
 #### User : Im new to this place can you recommend some good place to near by me
