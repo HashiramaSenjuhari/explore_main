@@ -6,6 +6,7 @@ interface FeatureCardProps {
   description: string;
   iconColor?: string;
   iconBgColor?: string;
+  // search?: (search: string) => void;
 }
 
 export function FeatureCard({
@@ -15,8 +16,18 @@ export function FeatureCard({
   iconColor = "text-blue-500",
   iconBgColor = "bg-blue-50",
 }: FeatureCardProps) {
+  let copy = async () => {
+    try {
+      navigator.clipboard.writeText(description);
+    } catch {
+      console.log("");
+    }
+  };
   return (
-    <div className="flex flex-col items-start gap-4 p-4 rounded-xl border hover:shadow-lg transition-shadow">
+    <div
+      className="flex flex-col items-start gap-4 p-4 rounded-xl border hover:shadow-lg transition-shadow cursor-pointer"
+      onClick={copy}
+    >
       <div className={`p-3 rounded-full ${iconBgColor}`}>
         <Icon className={`w-6 h-6 ${iconColor}`} />
       </div>

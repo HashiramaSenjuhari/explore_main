@@ -1,49 +1,97 @@
-import React from "react";
-import { Headphones, Search, Sun, Target } from "lucide-react";
-import { FeatureCard } from "@/components/feature";
+"use client";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import clsx from "clsx";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
-const History = () => {
+const page = () => {
+  let search = useSearchParams();
+  let type = search.get("type");
+  let [current, setCurrent] = useState<string>("food");
+  let [History, setHistory] = useState();
+
+  useEffect(() => {
+    setCurrent(type);
+  }, [type]);
+
+  useEffect(() => {
+    let ws = new WebSocket("ws://127.0.0.1:7878");
+    ws.onopen = () => {
+      console.log("Opening the Connection");
+      let uuid = JSON.stringify({ types: current });
+      ws.send(uuid);
+    };
+    ws.onmessage = (e) => {
+      // console.log(e.data);
+      if (e.data.length > 0 && e.data.startsWith("")) {
+        let json = JSON.parse(e.data);
+        setHistory(json);
+        // console.log(json);
+      }
+    };
+    ws.onerror = (e) => {
+      console.log(e);
+    };
+    ws.close = () => {
+      console.log("closing the stream");
+    };
+    return () => {
+      ws.close();
+    };
+  }, [current]);
+  let router = useRouter();
   return (
-    <main className="flex-1 p-9 flex justify-center items-center flex-col">
-      <div className="w-full mx-auto text-center mb-12">
-        <h1 className="text-3xl font-bold mb-4">Welcome, Davis</h1>
-        <p className="text-xl text-gray-500 mb-8">What's on your mind today?</p>
-
-        <div className="relative max-w-xl mx-auto">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Search biryani near by and at good rating"
-            className="w-full pl-10 pr-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-        <FeatureCard
-          icon={Target}
-          title="Productivity Boost"
-          description="Search Best place near me make me feel calm"
-          iconColor="text-blue-500"
-          iconBgColor="bg-blue-50"
-        />
-        <FeatureCard
-          icon={Sun}
-          title="User-Friendly Onboarding"
-          description="Find Room Near me in high rating"
-          iconColor="text-yellow-500"
-          iconBgColor="bg-yellow-50"
-        />
-        <FeatureCard
-          icon={Headphones}
-          title="Voice Assistant"
-          description="Now you can talk to get help"
-          iconColor="text-pink-500"
-          iconBgColor="bg-pink-50"
-        />
-      </div>
-    </main>
+    <div className=" h-full w-full">
+      <Tabs defaultValue="food" className="w-full h-full p-6">
+        <TabsList className=" w-full flex items-center">
+          <TabsTrigger
+            value="food"
+            onClick={() => router.push("/history?type=food")}
+          >
+            Food
+          </TabsTrigger>
+          <TabsTrigger
+            value="explore"
+            onClick={() => router.push("/history?type=explore")}
+          >
+            Explore
+          </TabsTrigger>
+          <TabsTrigger
+            value="rooms"
+            onClick={() => router.push("/history?type=rooms")}
+          >
+            Rooms
+          </TabsTrigger>
+        </TabsList>
+        {History
+          ? History?.map((history) => {
+              console.log(history);
+              let id = history[0].id;
+              let type = history[1].type;
+              let timestamp = history[2].timestanp;
+              console.log(id);
+              console.log(type);
+              console.log(timestamp);
+              let link = `${type}/${id}`;
+              return (
+                <TabsContent value={type} className=" p-4 border" key={id}>
+                  <Link href={link} className=" flex gap-x-6">
+                    <div className=" flex gap-x-6">
+                      <Badge>{type}</Badge>
+                      <p>{id}</p>
+                    </div>
+                    <p>{timestamp}</p>
+                  </Link>
+                </TabsContent>
+              );
+            })
+          : ""}
+        <TabsContent value="password">Change your password here.</TabsContent>
+      </Tabs>
+    </div>
   );
 };
 
-export default History;
+export default page;

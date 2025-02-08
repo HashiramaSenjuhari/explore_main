@@ -11,9 +11,11 @@ import { ArrowRight, Search } from "lucide-react";
 export default function SearchBar({
   values,
   loading,
+  setVale,
 }: {
   values: (value: string) => void;
   loading: boolean;
+  setVale: string;
 }) {
   // console.log(loading);
   let schema = z.object({
@@ -67,7 +69,7 @@ export default function SearchBar({
                   <Input
                     id={id}
                     className={"peer pe-9 ps-9 py-6"}
-                    placeholder={loading ? "Thinking" : "Search..."}
+                    placeholder={"Search..."}
                     type="search"
                     disabled={loading}
                     {...field}

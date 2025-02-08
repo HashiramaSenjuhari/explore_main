@@ -98,7 +98,7 @@ pub async fn create_topic(
     mut send: SplitSink<
         WebSocketStream<tokio::net::TcpStream>,
         tokio_tungstenite::tungstenite::Message,
-    >,
+    >
 ) {
     let create = create! {
       connection => postgres,
@@ -135,6 +135,39 @@ pub async fn create_topic(
         }
         Err(err) => {
             println!("{}", err);
+        }
+    }
+}
+
+pub async fn history(types:&str,
+    postgres: Arc<rusty_postgres::Client>,
+    mut send: SplitSink<
+    WebSocketStream<tokio::net::TcpStream>,
+    tokio_tungstenite::tungstenite::Message,
+>){
+    let find_many = find_many!{
+        connection => postgres,
+        model:"chat",
+        select: {
+            "id","type","timestanp"
+        },
+        conditions:{
+            and => {
+                "type" => types
+            }
+        },
+        order: {
+            "timestanp" => "asc"
+        }
+    };
+    match find_many {
+        Ok(msg) => {
+            println!("{:?}",msg);
+            let msg = serde_json::to_string(&msg).unwrap();
+            send.send(msg.into()).await;
+        }
+        Err(err) => {
+            println!("{}",err);
         }
     }
 }

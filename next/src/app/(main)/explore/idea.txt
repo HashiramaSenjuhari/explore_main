@@ -1,0 +1,23 @@
+https://www.google.com/maps/embed/v1/directions
+  ?key="EMPTY"
+  &origin=Oslo+Norway
+  &destination=Telemark+Norway
+  &avoid=tolls|highways
+
+  https://www.google.com/maps/embed/v1/view
+  ?key=YOUR_API_KEY
+  &center=-33.8569,151.2152
+  &zoom=18
+  &maptype=satellite
+
+  https://www.google.com/maps/embed/v1/streetview
+  ?key=YOUR_API_KEY
+  &location=46.414382,10.013988
+  &heading=210
+  &pitch=10
+  &fov=35
+
+  curl -H 'Authorization: Token <SERVER_TOKEN>' \
+     -H 'Accept-Language: en_US' \
+     -H 'Content-Type: application/json' \
+     'https://api.uber.com/v1.2/estimates/price?start_latitude=37.7752315&start_longitude=-122.418075&end_latitude=37.7752415&end_longitude=-122.518075'

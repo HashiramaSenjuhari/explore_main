@@ -4,11 +4,12 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS chat (
 id UUID DEFAULT uuid_generate_v4(),
 type TEXT,
+title TEXT,
 timestanp TIMESTAMP DEFAULT NOW(),
 PRIMARY KEY (id)
 );
-CREATE INDEX index_Q0mTgx ON chat (id);
-CLUSTER chat USING index_Q0mTgx;
+CREATE INDEX index_UOnwxi ON chat (id);
+CLUSTER chat USING index_UOnwxi;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS chats (
@@ -20,6 +21,6 @@ billionaireid UUID,
 PRIMARY KEY (id),
 FOREIGN KEY (billionaireid) REFERENCES chat(id) ON DELETE CASCADE 
 );
-CREATE INDEX index_4wvMlN ON chats (id);
-CLUSTER chats USING index_4wvMlN;
-CREATE INDEX index_relation_RPmg0p ON chats (billionaireid);
+CREATE INDEX index_AuqBPF ON chats (id);
+CLUSTER chats USING index_AuqBPF;
+CREATE INDEX index_relation_QXdXFa ON chats (billionaireid);

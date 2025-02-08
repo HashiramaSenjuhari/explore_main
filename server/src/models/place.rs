@@ -30,8 +30,8 @@ pub async fn place(lattitude: f32, longitude: f32, interest: &str) -> String {
       }
     ]);
     println!("{}", post);
-    let post = format!("POST /api/private/place-place HTTP/1.1\r\nHost: api.promptrepo.com\r\nx-api-key: 49dd852841c04e15928b110771ca049f\r\nContent-Type: application/json\r\nUser-Agent: Rust-Client/1.0\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",post.to_string().len(),post.to_string());
-    // println!("{}", post);
+    let post = format!("POST /api/private/place-place2?suggest=6 HTTP/1.1\r\nHost: api.promptrepo.com\r\nx-api-key: 49dd852841c04e15928b110771ca049f\r\nContent-Type: application/json\r\nUser-Agent: Rust-Client/1.0\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",post.to_string().len(),post.to_string());
+    println!("{}", post);
     client.write_all(post.as_bytes());
     client.flush();
 
