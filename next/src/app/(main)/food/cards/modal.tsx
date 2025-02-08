@@ -45,7 +45,6 @@ const Modal = ({
           <Tabs defaultValue="direction" className="w-full h-full">
             <TabsList>
               <TabsTrigger value="direction">Direction</TabsTrigger>
-              <TabsTrigger value="3d">3D</TabsTrigger>
             </TabsList>
             <TabsContent value="direction" asChild>
               {/* <div className=" w-full h-full"> */}
@@ -56,21 +55,9 @@ const Modal = ({
                   sandbox="allow-scripts allow-same-origin"
                   referrerPolicy="no-referrer-when-downgrade"
                   loading="lazy"
-                  src={`https://www.google.com/maps/embed/v1/directions?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&origin=${location.lattitude},${location.longitude}&destination=${latitude},${longitude}&avoid=tolls|highways`}
+                  src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.GOOGLE_API}&origin=${location.lattitude},${location.longitude}&destination=${latitude},${longitude}&avoid=tolls|highways`}
                 ></iframe>
               )}
-              {/* </div> */}
-            </TabsContent>
-            <TabsContent value="3d" asChild>
-              {/* <div className=" w-full h-full"> */}
-              <iframe
-                width="100%"
-                height="100%"
-                sandbox="allow-scripts allow-same-origin"
-                referrerPolicy="no-referrer-when-downgrade"
-                loading="lazy"
-                src={`https://www.google.com/maps/embed/v1/streetview?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&location=${latitude},${longitude}&heading=210&pitch=10&fov=35`}
-              ></iframe>
               {/* </div> */}
             </TabsContent>
           </Tabs>
