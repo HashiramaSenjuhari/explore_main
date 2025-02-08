@@ -54,7 +54,7 @@ const Modal = ({
                   sandbox="allow-scripts allow-same-origin"
                   referrerPolicy="no-referrer-when-downgrade"
                   loading="lazy"
-                  src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.GOOGLE_API}&origin=${location.latittude},${location.longitude}&destination=${destination}&avoid=tolls|highways&mode=driving`}
+                  src={`https://www.google.com/maps/embed/v1/directions?key=AIzaSyAOVYRIgupAurZup5y1PRh8Ismb1A3lLao&origin=${location.latittude},${location.longitude}&destination=${destination}&avoid=tolls|highways&mode=driving`}
                 ></iframe>
               )}
             </TabsContent>
