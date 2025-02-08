@@ -38,7 +38,7 @@ Explore Nearby is designed to help users navigate their surroundings effortlessl
 
 ## Intro
 
-![demo](https://www.loom.com/share/a40b37e1f0be4ed3910aedde21b1886f?sid=f262cb41-abc0-4b26-a2ff-33682cd208c7)
+demo video  link https://www.loom.com/share/a40b37e1f0be4ed3910aedde21b1886f?sid=5d8331a4-1916-4a7a-ad7d-53ecea06505c
 
 ## Flow
 
