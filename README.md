@@ -36,6 +36,10 @@ Explore Nearby is designed to help users navigate their surroundings effortlessl
 
 #### Yes
 
+## Intro
+
+![demo](https://www.loom.com/share/a40b37e1f0be4ed3910aedde21b1886f?sid=f262cb41-abc0-4b26-a2ff-33682cd208c7)
+
 ## Flow
 
 ![map](./assests//Generic%20Flowchart.jpg)
